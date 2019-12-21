@@ -1,7 +1,7 @@
 const MQTT = require('mqtt');
 const crypto = require('crypto');
 
-const client = MQTT.connect('mqtt://localhost');
+const client = MQTT.connect('ws://localhost:8883');
 const topic = '_test/load';
 const maxRps = 1000;
 

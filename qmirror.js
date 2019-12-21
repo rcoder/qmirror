@@ -3,7 +3,7 @@ const Hypercore = require('hypercore');
 const Pino = require('pino');
 const LRU = require('lru-cache');
 
-const server = 'mqtt://localhost';
+const server = 'ws://localhost:8883';
 const announce = 'qmirror/announce';
 const log = new Pino();
 const cache = new LRU({

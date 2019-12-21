@@ -1,7 +1,9 @@
 const MQTT = require('mqtt');
+const crypto = require('crypto');
 
 const client = MQTT.connect('mqtt://localhost');
 const topic = '_test/load';
+const maxRps = 1000;
 
 let sent = 0;
 let bytes = 0;
@@ -14,14 +16,15 @@ client.on('connect', () => {
     let msg = JSON.stringify({
       date: new Date(),
       msg: 'hello',
-      uptime: process.uptime()
+      uptime: process.uptime(),
+      random: crypto.randomBytes(128).toString('base64')
     });
     client.publish(topic, Buffer.from(msg), { qos: 1 }, (err) => {
       if (err) console.log(err);
       sent += 1;
       bytes += msg.length;
     });
-  }, 5);
+  }, 1000/maxRps);
 });
 
 process.on('SIGINT', () => {
